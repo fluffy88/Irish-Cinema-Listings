@@ -1,0 +1,73 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="Irish_Cinema_Listings.MoviePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+    
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="True" IsVisible="True" />
+    </shell:SystemTray.ProgressIndicator>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+
+        <!--Pivot Control-->
+        <controls:Pivot x:Name="MovieTitle" Title=" ">
+            <!--Pivot item one-->
+            <controls:PivotItem Header="Info">
+                <Grid>
+                    <Image Height="225" Margin="0,0,260,350" Name="PosterImage" Stretch="Fill" Width="160"/>
+                    <TextBlock Height="65" Margin="200,0,0,510" Text="Rating: " Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    <TextBlock Height="60" Margin="200,0,120,400" Name="RatingText" Text="{Binding}" TextAlignment="Right" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    <TextBlock Height="60" Margin="337,0,0,400" Text="/5" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    <TextBlock Height="65" Margin="200,0,0,300" Text="Cert: " Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    <TextBlock Height="60" Margin="200,0,80,200" Name="CertText" TextAlignment="Right" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    <Button Content="Trailer" VerticalAlignment="Center" Click="Button_Click" />
+                    <TextBlock Height="65" Margin="10,110,0,0" Text="Runtime: " Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    <TextBlock Height="60" Margin="100,210,0,0" Name="RuntimeText" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                </Grid>
+            </controls:PivotItem>
+
+            <!--Pivot item -->
+            <controls:PivotItem Header="Times">
+                <Grid>
+                    <ListBox Margin="20,0,0,0" Name="ShowingsList">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,5,0,20">
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" FontSize="{StaticResource PhoneFontSizeLarge}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </controls:PivotItem>
+
+            <!--Pivot item -->
+            <controls:PivotItem Header="Review">
+                <Grid>
+                    <ListBox Name="ReviewText" ItemsSource="{Binding}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,50">
+                                    <TextBlock Width="440" Text="{Binding}" TextWrapping="Wrap" Margin="10,0,0,0" FontFamily="{StaticResource PhoneFontFamilySemiLight}" FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </controls:PivotItem>
+
+        </controls:Pivot>
+    </Grid>    
+</phone:PhoneApplicationPage>
