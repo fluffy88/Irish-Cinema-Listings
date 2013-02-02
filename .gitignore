@@ -91,6 +91,8 @@ AppPackages/
 # Others
 [Bb]in
 [Oo]bj
+[Pp]erformance[Ll]ogs/
+Thumbs.db
 sql
 TestResults
 [Tt]est[Rr]esult*

@@ -37,10 +37,10 @@ namespace Irish_Cinema_Listings
         {
             var listBox = (ListBox)sender;
             var selectedItem = (ModelItem)listBox.SelectedItem;
-            String url = HttpUtility.UrlEncode(selectedItem.Url);
 
             if (selectedItem != null)
             {
+                String url = HttpUtility.UrlEncode(selectedItem.Url);
                 NavigationService.Navigate(new Uri("/MoviePage.xaml?url=" + url, UriKind.Relative));
             }
         }

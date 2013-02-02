@@ -5,6 +5,7 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:local="clr-namespace:Irish_Cinema_Listings"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
@@ -19,7 +20,7 @@
     </shell:SystemTray.ProgressIndicator>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="Transparent" local:TiltEffect.IsTiltEnabled="True">
 
         <!--Pivot Control-->
         <controls:Pivot x:Name="MovieTitle" Title=" ">
@@ -27,21 +28,15 @@
             <controls:PivotItem Header="Info">
                 <Grid>
                     <Image Height="225" Margin="0,0,260,350" Name="PosterImage" Stretch="Fill" Width="160"/>
-                    <TextBlock Height="65" Margin="200,0,0,510" Text="Rating: " Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                    <TextBlock Height="60" Margin="200,0,120,400" Name="RatingText" Text="{Binding}" TextAlignment="Right" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                    <TextBlock Height="60" Margin="337,0,0,400" Text="/5" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                    <TextBlock Height="65" Margin="200,0,0,300" Text="Cert: " Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                    <TextBlock Height="60" Margin="200,0,80,200" Name="CertText" TextAlignment="Right" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                    <Button Content="Trailer" VerticalAlignment="Center" Click="Button_Click" />
-                    <TextBlock Height="65" Margin="10,110,0,0" Text="Runtime: " Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                    <TextBlock Height="60" Margin="100,210,0,0" Name="RuntimeText" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                </Grid>
-            </controls:PivotItem>
+                    <TextBlock Height="65" Margin="200,0,0,500" Text="Rating: " Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    <TextBlock Height="60" Margin="337,0,50,500" Name="RatingText" Text="{Binding}" TextAlignment="Right" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    <TextBlock Height="60" Margin="410,0,0,500" Text="/5" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    <TextBlock Height="65" Margin="200,0,0,350" Text="Cert: " Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    <TextBlock Height="60" Margin="300,0,10,350" Name="CertText" TextAlignment="Right" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    <Button Margin="200,0,15,200" Content="Trailer" x:Name="TrailerButton" VerticalAlignment="Center" Click="Button_Click" />
 
-            <!--Pivot item -->
-            <controls:PivotItem Header="Times">
-                <Grid>
-                    <ListBox Margin="20,0,0,0" Name="ShowingsList">
+                    <TextBlock Height="65" Margin="20,0,0,50" Text="Times: " Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    <ListBox Margin="40,300,0,0" Name="ShowingsList">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="0,5,0,20">

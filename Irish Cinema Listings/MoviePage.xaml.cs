@@ -47,60 +47,17 @@ namespace Irish_Cinema_Listings
             iterator.MoveNext();
             var movie = iterator.Current;
 
-            this.ItemsLoading++;
-            var url = new Uri(JsonUtils.StripSlashes(movie["poster"]), UriKind.Absolute);
-
             Dispatcher.BeginInvoke(() =>
             {
                 MovieTitle.Title = movie["name"];
                 RatingText.Text = movie["rating"];
                 CertText.Text = movie["cert"];
-                BitmapImage image = new BitmapImage(url);
-                image.DownloadProgress += new EventHandler<DownloadProgressEventArgs>(bitmapImage_DownloadProgress);
-                PosterImage.Source = image;
-                RuntimeText.Text = movie["info"].Substring(movie["info"].IndexOf(" "));
             });
 
-            if (movie["review"] != "")
-            {
-                String reviewUrl = JsonUtils.StripSlashes(movie["review"]);
-                this.ItemsLoading++;
-                HttpWebRequest request = HttpUtils.GetHttpRequest(reviewUrl);
-                request.BeginGetResponse(new AsyncCallback(ReadReviewWebRequestCallback), request);
-            }
-            else
-            {
-                Dispatcher.BeginInvoke(() => ReviewText.DataContext = new String[] { "No Review!" });
-            }
-
-            if (movie["trailer"] != "")
-            {
-                mediaPlayerLauncher = new MediaPlayerLauncher();
-                Uri trailer = new Uri(JsonUtils.StripSlashes(movie["trailer"]));
-
-                mediaPlayerLauncher.Media = trailer;
-                mediaPlayerLauncher.Controls = MediaPlaybackControls.Pause | MediaPlaybackControls.Stop;
-                mediaPlayerLauncher.Orientation = MediaPlayerOrientation.Landscape;
-            }
-
-            var movieTimes = new Collection<String>();
-            var timesResult = JsonUtils.GetItems(results, new String[] { "day", "screenings" });
-            foreach (Dictionary<String, String> times in timesResult)
-            {
-                if (times["day"] != "")
-                {
-                    movieTimes.Add(times["day"] + "\n" + times["screenings"]);
-                }
-                else
-                {
-                    int last = movieTimes.Count - 1;
-                    var previousTime = movieTimes.ElementAt(last);
-                    previousTime += " " + times["screenings"];
-                    movieTimes.RemoveAt(last);
-                    movieTimes.Insert(last, previousTime);
-                }
-            }
-            Dispatcher.BeginInvoke(() => ShowingsList.ItemsSource = movieTimes);
+            this.doImage(movie["poster"]);
+            this.doTrailer(movie["trailer"]);
+            this.doReview(movie["review"]);
+            this.doTimes(results);
 
             FinishedLoading();
         }
@@ -139,7 +96,87 @@ namespace Irish_Cinema_Listings
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            mediaPlayerLauncher.Show();
+            if (mediaPlayerLauncher != null)
+            {
+                mediaPlayerLauncher.Show();
+            }
+        }
+
+        private void doImage(String strUrl)
+        {
+            if (strUrl != "")
+            {
+                var url = new Uri(JsonUtils.StripSlashes(strUrl), UriKind.Absolute);
+                Dispatcher.BeginInvoke(() =>
+                {
+                    this.ItemsLoading++;
+                    BitmapImage image = new BitmapImage(url);
+                    image.DownloadProgress += new EventHandler<DownloadProgressEventArgs>(bitmapImage_DownloadProgress);
+                    PosterImage.Source = image;
+                });
+            }
+        }
+
+        private void doTrailer(String strUrl)
+        {
+            if (strUrl != "")
+            {
+                mediaPlayerLauncher = new MediaPlayerLauncher();
+                Uri trailer = new Uri(JsonUtils.StripSlashes(strUrl));
+
+                mediaPlayerLauncher.Media = trailer;
+                mediaPlayerLauncher.Controls = MediaPlaybackControls.All;
+                mediaPlayerLauncher.Orientation = MediaPlayerOrientation.Landscape;
+            }
+            else
+            {
+                Dispatcher.BeginInvoke(() =>
+                {
+                    TrailerButton.Content = "No Trailer!";
+                    TrailerButton.IsEnabled = false;
+                });
+            }
+        }
+
+        private void doReview(String strUrl)
+        {
+            if (strUrl != "")
+            {
+                String reviewUrl = JsonUtils.StripSlashes(strUrl);
+                this.ItemsLoading++;
+                HttpWebRequest request = HttpUtils.GetHttpRequest(reviewUrl);
+                request.BeginGetResponse(new AsyncCallback(ReadReviewWebRequestCallback), request);
+            }
+            else
+            {
+                Dispatcher.BeginInvoke(() => ReviewText.DataContext = new String[] { "No Review!" });
+            }
+        }
+
+        private void doTimes(String results)
+        {
+            var movieTimes = new Collection<String>();
+            var timesResult = JsonUtils.GetItems(results, new String[] { "day", "screenings" });
+            foreach (Dictionary<String, String> times in timesResult)
+            {
+                if (times["day"] != "")
+                {
+                    movieTimes.Add(times["day"] + "\n" + times["screenings"]);
+                }
+                else if (times["screenings"] != "")
+                {
+                    int last = movieTimes.Count - 1;
+                    var previousTime = movieTimes.ElementAt(last);
+                    previousTime += " " + times["screenings"];
+                    movieTimes.RemoveAt(last);
+                    movieTimes.Insert(last, previousTime);
+                }
+                else
+                {
+                    movieTimes.Add("No Showings!");
+                }
+            }
+            Dispatcher.BeginInvoke(() => ShowingsList.ItemsSource = movieTimes);
         }
     }
 }

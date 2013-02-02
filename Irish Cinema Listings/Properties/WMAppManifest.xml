@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{7ee23262-a8b0-4fb7-8d4b-f72d73ab61c4}" Title="Cinema Listings" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Irish_Cinema_Listings author" Description="Sample description" Publisher="Irish_Cinema_Listings">
+  <App xmlns="" ProductID="{7ee23262-a8b0-4fb7-8d4b-f72d73ab61c4}" Title="Irish Cinema Listings" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Irish_Cinema_Listings author" Description="Sample description" Publisher="Irish_Cinema_Listings">
     <IconPath IsRelative="true" IsResource="false">Images\Projector_Icon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES" />
