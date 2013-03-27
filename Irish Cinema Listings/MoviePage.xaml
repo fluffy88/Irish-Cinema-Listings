@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:local="clr-namespace:Irish_Cinema_Listings"
+    xmlns:ControlsToolkit="clr-namespace:System.Windows.Controls" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
@@ -28,9 +29,15 @@
             <controls:PivotItem Header="Info">
                 <Grid>
                     <Image Height="225" Margin="0,0,260,350" Name="PosterImage" Stretch="Fill" Width="160"/>
-                    <TextBlock Height="65" Margin="200,0,0,500" Text="Rating: " Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                    <TextBlock Height="60" Margin="337,0,50,500" Name="RatingText" Text="{Binding}" TextAlignment="Right" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                    <TextBlock Height="60" Margin="410,0,0,500" Text="/5" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+
+                    <ControlsToolkit:Rating x:Name="rating" Margin="200,20,155,565" ItemCount="5">
+                        <ControlsToolkit:Rating.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </ControlsToolkit:Rating.ItemsPanel>
+                    </ControlsToolkit:Rating>
+                   
                     <TextBlock Height="65" Margin="200,0,0,350" Text="Cert: " Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                     <TextBlock Height="60" Margin="300,0,10,350" Name="CertText" TextAlignment="Right" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                     <Button Margin="200,0,15,200" Content="Trailer" x:Name="TrailerButton" VerticalAlignment="Center" Click="Button_Click" />

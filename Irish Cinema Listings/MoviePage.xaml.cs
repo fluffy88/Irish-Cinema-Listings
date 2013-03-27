@@ -50,7 +50,8 @@ namespace Irish_Cinema_Listings
             Dispatcher.BeginInvoke(() =>
             {
                 MovieTitle.Title = movie["name"];
-                RatingText.Text = movie["rating"];
+                //RatingText.Text = movie["rating"];
+                rating.Value = 0.6;
                 CertText.Text = movie["cert"];
             });
 

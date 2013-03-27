@@ -72,6 +72,22 @@
     <Compile Include="MoviesPage.xaml.cs">
       <DependentUpon>MoviesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Rating\Clipper.cs" />
+    <Compile Include="Rating\EnumerableFunctions.cs" />
+    <Compile Include="Rating\ExpandDirection.cs" />
+    <Compile Include="Rating\InteractionHelper.cs" />
+    <Compile Include="Rating\ItemsControlHelper.cs" />
+    <Compile Include="Rating\IUpdateVisualState.cs" />
+    <Compile Include="Rating\LinearClipper.cs" />
+    <Compile Include="Rating\NullableConverter.cs" />
+    <Compile Include="Rating\Rating.cs" />
+    <Compile Include="Rating\RatingAutomationPeer.cs" />
+    <Compile Include="Rating\RatingItem.cs" />
+    <Compile Include="Rating\RatingItemAutomationPeer.cs" />
+    <Compile Include="Rating\RatingSelectionMode.cs" />
+    <Compile Include="Rating\Tuple.cs" />
+    <Compile Include="Rating\TupleExtensions.cs" />
+    <Compile Include="Rating\VisualStates.cs" />
     <Compile Include="Utils\TiltEffect.cs" />
     <Compile Include="Utils\HttpUtils.cs" />
     <Compile Include="Models\CinemaModel.cs" />
@@ -103,6 +119,10 @@
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
